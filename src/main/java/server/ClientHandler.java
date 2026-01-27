@@ -27,7 +27,8 @@ try (
         ){
 
     String input ;
-    String clientId = socket.getInetAddress().getHostAddress();
+//    String clientId = socket.getInetAddress().getHostAddress();
+    String clientId = socket.getRemoteSocketAddress().toString();
 
 
     while ((input=in.readLine())!=null){
