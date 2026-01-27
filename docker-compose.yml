@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+
+  redis:
+    image: redis:7
+    container_name: rate-limiter-redis
+    ports:
+      - "6379:6379"
+
+#  tcp-server:
+#    build: .
+#    container_name: rate-limiter-server
+#    depends_on:
+#      - redis
+#    ports:
+#      - "9090:9090"
