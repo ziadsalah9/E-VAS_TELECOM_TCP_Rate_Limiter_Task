@@ -6,16 +6,6 @@ import redis.clients.jedis.Jedis;
 
 public class RedisRateLimitRepository {
 
-   // before redis
-//    private final ConcurrentHashMap<String, AtomicLong> store =
-//            new ConcurrentHashMap<>();
-//
-//    public long incrementAndGet(String clientId) {
-//
-//        store.putIfAbsent(clientId, new AtomicLong(0));
-//
-//        return store.get(clientId).incrementAndGet();
-//    }
 
     private static  final int fixed_window_seconde= 60;
 
