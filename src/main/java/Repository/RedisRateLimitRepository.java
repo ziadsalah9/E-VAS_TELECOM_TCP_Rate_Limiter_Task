@@ -1,7 +1,7 @@
 package Repository;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
+import java.time.Instant;
+
 import redis.clients.jedis.Jedis;
 
 public class RedisRateLimitRepository {
@@ -17,13 +17,22 @@ public class RedisRateLimitRepository {
 //        return store.get(clientId).incrementAndGet();
 //    }
 
-    private static final String REDIS_HOST = "redis";
-    private static final int REDIS_PORT = 6379;
+    private static  final int fixed_window_seconde= 60;
 
-    public static Jedis create() {
-        return new Jedis(REDIS_HOST, REDIS_PORT);
+    public long incrementAndGet(String client_id){
+
+        long currentWindow= Instant.now().getEpochSecond()/fixed_window_seconde;  //ex: 1500 sec / 600 sec
+        String key = "rate:" + client_id +":"+ currentWindow;
+        try (Jedis jedis = RedisConnectionFactory.create()) {
+
+        Long count = jedis.incr(key);
+            if (count == 1) {
+                jedis.expire(key, fixed_window_seconde);
+            }
+
+            return count;
+
+
+        }
     }
-
-
-
 }
