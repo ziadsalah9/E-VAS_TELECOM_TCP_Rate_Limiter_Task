@@ -19,6 +19,7 @@ public class RateLimitService {
     public RateLimitResult checkRateLimitResult(String clientId) {
 
         var currentCount = _RdlRepository.incrementAndGet(clientId);
+
         if(currentCount <= limit){
             return RateLimitResult.ALLOW;
         }
