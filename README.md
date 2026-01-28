@@ -45,11 +45,11 @@ Redis will be available at localhost:6379.
 
 You can configure rate limits, window size, ports, and thread pool size via system properties or directly in RateLimitConfig.java.
 
-public static final int LIMIT = Integer.parseInt(System.getProperty("RATE_LIMIT", "10"));
-public static final int WINDOW_SECONDS = Integer.parseInt(System.getProperty("WINDOW_SECONDS", "60"));
-public static final int SERVER_PORT = Integer.parseInt(System.getProperty("SERVER_PORT", "9090"));
-public static final int SLIDING_WINDOW_SERVER_PORT = Integer.parseInt(System.getProperty("SERVER_PORT", "9091"));
-public static final int THREAD_POOL_SIZE = Integer.parseInt(System.getProperty("THREAD_POOL_SIZE", "10"));
+- public static final int LIMIT = Integer.parseInt(System.getProperty("RATE_LIMIT", "10"));
+- public static final int WINDOW_SECONDS = Integer.parseInt(System.getProperty("WINDOW_SECONDS", "60"));
+- public static final int SERVER_PORT = Integer.parseInt(System.getProperty("SERVER_PORT", "9090"));
+- public static final int SLIDING_WINDOW_SERVER_PORT = Integer.parseInt(System.getProperty("SERVER_PORT", "9091"));
+- public static final int THREAD_POOL_SIZE = Integer.parseInt(System.getProperty("THREAD_POOL_SIZE", "10"));
 
 # How to Use and Run the project 
 
@@ -117,9 +117,9 @@ Sliding Window server → port 9091
 
 The project includes JUnit 5 tests:
 
-1-RedisRateLimitRepositoryTest.java ===>  single-client, fixed window behavior
-2-RedisRateLimitRepositoryMultiClientTest.java ===> multiple clients
-3-RedisSlidingWindowRateLimitRepositoryTest.java ===> sliding window behavior
+- RedisRateLimitRepositoryTest.java ===>  single-client, fixed window behavior
+- RedisRateLimitRepositoryMultiClientTest.java ===> multiple clients
+- RedisSlidingWindowRateLimitRepositoryTest.java ===> sliding window behavior
 
 Run all tests using Maven command: mvn test
 
@@ -141,6 +141,7 @@ Run all tests using Maven command: mvn test
 
 ## Logging Denied Requests
  All denied requests are logged on the server console.
+
  ex : [pool-1-thread-1] WARN Repository.RedisRateLimitRepository - DENY request for client=/127.0.0.1:61822 count=10 timestamp=2026-01-28T02:01:24.217871500Z
 
 
@@ -152,3 +153,6 @@ Run all tests using Maven command: mvn test
 - Each client is limited independently. For example, if LIMIT=10, three clients can each send 10 requests per minute.
 - Ensure Redis is running before starting the TCP server.
 - This project uses raw TCP; do not attempt HTTP or REST requests.
+
+# Author 
+ziad salah
