@@ -1,6 +1,6 @@
 package server;
 
-import client.configs.RateLimitConfig;
+import configs.RateLimitConfig;
 
 import java.net.ServerSocket;
 import java.util.concurrent.ExecutorService;

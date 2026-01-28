@@ -1,4 +1,4 @@
-package client.configs;
+package configs;
 
 public class RateLimitConfig {
 

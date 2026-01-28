@@ -1,7 +1,7 @@
 package server;
 
 import Repository.RedisRateLimitRepository;
-import client.configs.RateLimitConfig;
+import configs.RateLimitConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;

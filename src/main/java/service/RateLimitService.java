@@ -1,7 +1,7 @@
 package service;
 
 import Repository.RedisRateLimitRepository;
-import client.configs.RateLimitConfig;
+import configs.RateLimitConfig;
 import domain.RateLimitResult;
 
 import java.time.Instant;

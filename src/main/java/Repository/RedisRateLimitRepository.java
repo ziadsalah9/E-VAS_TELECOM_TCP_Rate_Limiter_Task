@@ -2,7 +2,7 @@ package Repository;
 
 import java.time.Instant;
 
-import client.configs.RateLimitConfig;
+import configs.RateLimitConfig;
 import redis.clients.jedis.Jedis;
 
 import org.slf4j.Logger;
