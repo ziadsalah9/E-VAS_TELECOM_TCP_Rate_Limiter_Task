@@ -1,13 +1,21 @@
 package service;
 
 import Repository.RedisRateLimitRepository;
+import client.configs.RateLimitConfig;
 import domain.RateLimitResult;
+
+import java.time.Instant;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class RateLimitService {
 
     // Rule: 10 req/min
+    private static final Logger logger = LoggerFactory.getLogger(RedisRateLimitRepository.class);
 
-    private static final int limit = 10 ;
+//    private static final int limit = 10 ;
 
     private final RedisRateLimitRepository _RdlRepository;
 
@@ -20,9 +28,18 @@ public class RateLimitService {
 
         var currentCount = _RdlRepository.incrementAndGet(clientId);
 
-        if(currentCount <= limit){
-            return RateLimitResult.ALLOW;
+//        if(currentCount <= limit){
+//            return RateLimitResult.ALLOW;
+//        }
+//        return RateLimitResult.DENY;
+//
+
+
+        if (currentCount > RateLimitConfig.LIMIT){
+            logger.warn("DENY request for client={} count={} timestamp={}", clientId, currentCount, Instant.now());
+
+            return RateLimitResult.DENY;
         }
-        return RateLimitResult.DENY;
+        return RateLimitResult.ALLOW;
     }
 }
