@@ -1,5 +1,7 @@
 package client;
 
+import configs.RateLimitConfig;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -10,9 +12,9 @@ public class TestClientwhenTimeGone1mreturnArequestAgain {
     public static void main(String[] args) {
 
         String host = "localhost";
-        int port = 9090;
+       // int port = 9090;
 
-        try (Socket socket = new Socket(host, port);
+        try (Socket socket = new Socket(host, RateLimitConfig.SERVER_PORT);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
         ) {

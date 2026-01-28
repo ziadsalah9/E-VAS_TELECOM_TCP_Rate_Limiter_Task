@@ -1,5 +1,7 @@
 package client;
 
+import configs.RateLimitConfig;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -10,8 +12,8 @@ import java.util.concurrent.Executors;
 public class TestConcurrentClients {
 
     private static final String HOST = "localhost";
-    private static final int PORT = 9090;
     private static final int REQUESTS_PER_CLIENT = 12;
+    //  private static final int PORT = 9090;
 
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(3);
@@ -27,7 +29,7 @@ public class TestConcurrentClients {
     }
 
     private static void runClient(int clientId) {
-        try (Socket socket = new Socket(HOST, PORT);
+        try (Socket socket = new Socket(HOST, RateLimitConfig.SERVER_PORT);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
 
