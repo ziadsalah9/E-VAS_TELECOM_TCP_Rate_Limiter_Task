@@ -39,6 +39,7 @@ services:
       - "6379:6379"
 
 Command : docker-compose up -d
+
 Redis will be available at localhost:6379.
 
 ## Configuration
@@ -65,7 +66,7 @@ Before testing, decide which rate-limiting strategy you want to run:
 ## Running clients
 All test clients are in the client folder. Each client tests a specific scenario:
 
-1. TestClient (class)
+**1. TestClient (class)**
 
 - Single client sends 15 requests.
 
@@ -73,7 +74,7 @@ All test clients are in the client folder. Each client tests a specific scenario
 
 - Purpose: basic single-client rate limiting with Fixed Window.
 
-2. TestClientWhenTimeGone1mReturnARequestAgain (class)
+**2. TestClientWhenTimeGone1mReturnARequestAgain (class)**
 
 - Single client sends 12 requests:
 
@@ -85,7 +86,7 @@ All test clients are in the client folder. Each client tests a specific scenario
 
 - Purpose: verify window reset behavior.
 
-3. TestConcurrentClients
+**3. TestConcurrentClients**
 
 - 3 clients concurrently send 12 requests each:
 
@@ -95,7 +96,7 @@ All test clients are in the client folder. Each client tests a specific scenario
 
 - Purpose: test multi-client Fixed Window enforcement.
 
-4. TestSlidingWindowClient
+**4. TestSlidingWindowClient**
 
 - Single client sends 15 requests:
 
