@@ -52,6 +52,30 @@ You can configure rate limits, window size, ports, and thread pool size via syst
 - public static final int SLIDING_WINDOW_SERVER_PORT = Integer.parseInt(System.getProperty("SERVER_PORT", "9091"));
 - public static final int THREAD_POOL_SIZE = Integer.parseInt(System.getProperty("THREAD_POOL_SIZE", "10"));
 
+
+# Project Structure
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   ├── server
+│   │   │   │   ├── TcpServer.java            
+│   │   │   │   └── SlidingWindowTcpServer.java
+│   │   │   ├── Repository
+│   │   │   │   ├── RedisRateLimitRepository.java
+│   │   │   │   ├── RedisSlidingWindowRateLimitRepository.java
+│   │   │   │   └── RedisConnectionFactory.java
+│   │   │   └── client/configs
+│   │   │       └── RateLimitConfig.java      
+│   └── test
+│       └── java
+│           └── Repository
+│               ├── RedisRateLimitRepositoryTest.java
+│               └── RedisRateLimitRepositoryMultiClientTest.java
+│               └── RedisSlidingWindowRateLimitRepositoryTest.java
+├── pom.xml
+└── README.md
+
+
 # How to Use and Run the project 
 
 ## Running the TCP Servers
