@@ -14,7 +14,7 @@ public class RedisSlidingWindowRateLimitRepositoryTest {
     void setup() {
         repository = new RedisRateLimitRepository();
         jedis = RedisConnectionFactory.create();
-        jedis.flushDB(); // Clean redis before every test
+        jedis.flushDB();
     }
 
     @AfterEach
@@ -38,13 +38,11 @@ public class RedisSlidingWindowRateLimitRepositoryTest {
 
         String clientId = "sliding-client-deny";
 
-        // Send LIMIT requests inside same window
         for (int i = 1; i <= 10; i++) {
             boolean allowed = repository.allowRequestSliding(clientId);
             assertTrue(allowed);
         }
 
-        // Send overflow request
         boolean denied = repository.allowRequestSliding(clientId);
 
         assertFalse(denied, "Request after limit should be DENIED");
@@ -59,7 +57,6 @@ public class RedisSlidingWindowRateLimitRepositoryTest {
             repository.allowRequestSliding(clientId);
         }
 
-        // Wait window expiry
         Thread.sleep(61000);
 
         boolean allowed = repository.allowRequestSliding(clientId);

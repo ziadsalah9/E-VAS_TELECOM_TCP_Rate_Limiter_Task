@@ -15,7 +15,7 @@ public class RedisRateLimitRepositoryMultiClientTest {
     static void setup() {
         repository = new RedisRateLimitRepository();
         jedis = RedisConnectionFactory.create();
-        jedis.flushDB(); // تنظيف Redis قبل الاختبارات
+        jedis.flushDB();
     }
 
     @AfterAll
@@ -28,7 +28,6 @@ public class RedisRateLimitRepositoryMultiClientTest {
     void testMultipleClientsLimit() {
         String[] clients = {"clientA", "clientB", "clientC"};
 
-        // كل client ينفذ 10 requests → ALLOW
         for (int i = 1; i <= 10; i++) {
             for (String clientId : clients) {
                 long count = repository.incrementAndGet(clientId);
@@ -36,7 +35,6 @@ public class RedisRateLimitRepositoryMultiClientTest {
             }
         }
 
-        // Extra request لكل client → DENY
         for (String clientId : clients) {
             long count = repository.incrementAndGet(clientId);
             assertTrue(count > 10, clientId + " extra request should be DENY");
@@ -48,10 +46,8 @@ public class RedisRateLimitRepositoryMultiClientTest {
     void testWindowResetForMultipleClients() throws InterruptedException {
         String[] clients = {"clientA", "clientB", "clientC"};
 
-        // انتظر انتهاء ال window
-        Thread.sleep(61000); // 61 ثانية لتأكيد reset
+        Thread.sleep(61000);
 
-        // بعد reset → كل client request الأول → ALLOW
         for (String clientId : clients) {
             long count = repository.incrementAndGet(clientId);
             assertEquals(1, count, clientId + " should start at 1 after window reset");

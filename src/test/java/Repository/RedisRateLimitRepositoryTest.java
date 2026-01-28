@@ -15,7 +15,7 @@ public class RedisRateLimitRepositoryTest {
     static void setup() {
         repository = new RedisRateLimitRepository();
         jedis = RedisConnectionFactory.create();
-        jedis.flushDB(); // تنظيف Redis قبل الاختبارات
+        jedis.flushDB();
     }
 
     @AfterAll
@@ -28,20 +28,16 @@ public class RedisRateLimitRepositoryTest {
     void testIncrementAndLimit() throws InterruptedException {
         String clientId = "testClient";
 
-        // ALLOW 10 requests
         for (int i = 1; i <= 10; i++) {
             long count = repository.incrementAndGet(clientId);
             assertTrue(count <= 10, "Request " + i + " should be ALLOW");
         }
 
-        // Request 11 → DENY
         long count11 = repository.incrementAndGet(clientId);
         assertTrue(count11 > 10, "11th request should be DENY");
 
-        // انتظر حتى تنتهي الـ window
-        Thread.sleep(61000); // 61 ثانية لتأكد reset
+        Thread.sleep(61000);
 
-        // Request بعد expiry → ALLOW
         long countAfterExpire = repository.incrementAndGet(clientId);
         assertEquals(1, countAfterExpire, "After window reset, counter should start at 1");
     }
